@@ -1,0 +1,3 @@
+# am not want to host my environment on github
+*.env
+

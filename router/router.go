@@ -37,11 +37,52 @@ func SetUpRouter(c *echo.Echo) {
 	v2.PUT("/tec/:id", handler.UpdadeTechnicain)
 	v2.DELETE("/tec/:id", handler.DeleteTechnician)
 
-		//Result router
+	//Result router
 	v2.POST("/res", handler.CreateResult)
 	v2.GET("/res", handler.GetAllResult)
 	v2.GET("/res/:id", handler.GetResultById)
 	v2.PUT("/res/:id", handler.UpdateResult)
 	v2.DELETE("/res/:id", handler.DeleteResult)
 
+	//Request router
+	v2.POST("/lab", handler.CreateLabRequest)
+	v2.GET("/lab", handler.GetAllLabRequest)
+	v2.GET("/lab/:id", handler.GetLabRequestById)
+	v2.PUT("/lab/:id", handler.UpdateLabRequest)
+	v2.DELETE("/lab/:id", handler.DeleteLabRequest)
+
+	//appointment router
+	v3.POST("/appt", handler.PatientApointement)
+	v3.POST("/appt-e", handler.SendNotificationByEmail)
+	v3.GET("/appt", handler.GetAllApointment)
+	v3.GET("/appt/:id", handler.GetAppointmentById)
+	v3.PUT("/appt/:id", handler.UpdataAppointment)
+	v3.DELETE("/appt/:id", handler.DeleteAppointment)
+
+	//paying bill
+	v3.POST("/pay", handler.AcceptPayment)
+	v3.GET("/pay-v", handler.VerifyPayment)
+	v3.POST("/pay-s", handler.SplitPayment)
+	v3.GET("/pay-b", handler.GetBank)
+	v3.POST("/pay-t", handler.TransferBill)
+	//pharmacy
+	v2.POST("/ph", handler.CreatePharmatics)
+	v2.GET("/ph", handler.GetAllPharmatics)
+	v2.GET("/ph/:id", handler.GetAllPharmaticsByID)
+	v2.PUT("/ph/:id", handler.UpdatePharmatics)
+	v2.DELETE("/ph/:id", handler.DeletePharmatics)
+
+	//receptionist
+	v2.POST("/rs", handler.CreateReceptionest)
+	v2.GET("/rs", handler.GetAllReceptionist)
+	v2.GET("/rs/:id", handler.GetAllReceptionistByID)
+	v2.PUT("/rs/:id", handler.UpdateReceptionist)
+	v2.DELETE("/rs/:id", handler.DeleteReceptionist)
+
+	//medicine
+	v2.POST("/medicine", handler.CreateMedicine)
+	v2.GET("/medicine", handler.GetAllMedicine)
+	v2.GET("/medicine/:id", handler.GetAllMedicineById)
+	v2.PUT("/medicine/:id", handler.UpdateMedicine)
+	v2.DELETE("/medicine/:id", handler.DeleteMedicine)
 }

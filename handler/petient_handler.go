@@ -31,6 +31,7 @@ func CreatePatient(c echo.Context) error {
 		InsuranceInfo:     pet.InsuranceInfo,
 		Gender:            pet.Gender,
 		EmergencyContanct: pet.EmergencyContanct,
+		Disease:           pet.Disease,
 	}
 	if err := db.Create(&petient).Error; err != nil {
 		data := map[string]interface{}{
@@ -40,8 +41,24 @@ func CreatePatient(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, data)
 	}
 
+    // if pet.Disease=="head"{
+    //     optmology:=model.Optimology{
+
+	// 	}
+    // }
+	// if pet.Disease=="abdomen"{
+    //     cordioloy:=model.Optimology{
+			
+	// 	}
+    // }
+	// if pet.Disease=="leg"{
+    //     dermantology:=model.Optimology{
+			
+	// 	}
+    // }
+
 	response := map[string]interface{}{
-		"message": "Petient registered successfully",
+		"message": "Dear " + petient.Name + ",\n\nThank you for registering with us.\n\n",
 		"data":    petient,
 	}
 	return c.JSON(http.StatusOK, response)
@@ -67,93 +84,92 @@ func GetPatientByID(c echo.Context) error {
 	return c.JSON(http.StatusOK, response)
 }
 
-func GetAllPetient(c echo.Context) error{
-	db:=database.GetDB()
+func GetAllPetient(c echo.Context) error {
+	db := database.GetDB()
 	var petient []model.Petient
 
-	if err:=db.Find(&petient).Error; err !=nil{
-		data:=map[string]interface{}{
-			"message":"petient not found",
-			"data":err.Error(),
+	if err := db.Find(&petient).Error; err != nil {
+		data := map[string]interface{}{
+			"message": "petient not found",
+			"data":    err.Error(),
 		}
 		return c.JSON(http.StatusNotFound, data)
 	}
-	response:=map[string]interface{}{
-		"message":"petient is foud",
-		"data":petient,
+	response := map[string]interface{}{
+		"message": "petient is foud",
+		"data":    petient,
 	}
 	return c.JSON(http.StatusOK, response)
 }
 
-func UpdataPetient(c echo.Context) error{
-	db:=database.GetDB()
-	id:=c.Param("id")
+func UpdataPetient(c echo.Context) error {
+	db := database.GetDB()
+	id := c.Param("id")
 
-	updatedPetient:=new(model.Petient)
-	if err:=c.Bind(updatedPetient); err !=nil{
-		data:=map[string]interface{}{
-			"message":"data is not binding",
-			"data":err.Error(),
+	updatedPetient := new(model.Petient)
+	if err := c.Bind(updatedPetient); err != nil {
+		data := map[string]interface{}{
+			"message": "data is not binding",
+			"data":    err.Error(),
 		}
 		return c.JSON(http.StatusInternalServerError, data)
 	}
 
 	var petient model.Petient
-	if err:=db.Where("id=?", id).First(&petient).Error; err !=nil{
-		data:=map[string]interface{}{
-			"message":"petient not found by this id",
-			"data":err.Error(),
+	if err := db.Where("id=?", id).First(&petient).Error; err != nil {
+		data := map[string]interface{}{
+			"message": "petient not found by this id",
+			"data":    err.Error(),
 		}
 		return c.JSON(http.StatusNotFound, data)
 	}
 
-	petient.Name=updatedPetient.Name
-	petient.Email=updatedPetient.Email
-	petient.Phone=updatedPetient.Phone
-	petient.Address=updatedPetient.Address
-	petient.MedicalHistory=updatedPetient.MedicalHistory
-	petient.InsuranceInfo=updatedPetient.InsuranceInfo
-	petient.Gender=updatedPetient.Gender
-	petient.EmergencyContanct=updatedPetient.EmergencyContanct
+	petient.Name = updatedPetient.Name
+	petient.Email = updatedPetient.Email
+	petient.Phone = updatedPetient.Phone
+	petient.Address = updatedPetient.Address
+	petient.MedicalHistory = updatedPetient.MedicalHistory
+	petient.InsuranceInfo = updatedPetient.InsuranceInfo
+	petient.Gender = updatedPetient.Gender
+	petient.EmergencyContanct = updatedPetient.EmergencyContanct
 
-	if err:=db.Save(&petient).Error; err !=nil{
-		data:=map[string]interface{}{
-			"message":"could not update petient information",
-			"data":err.Error(),
+	if err := db.Save(&petient).Error; err != nil {
+		data := map[string]interface{}{
+			"message": "could not update petient information",
+			"data":    err.Error(),
 		}
 		return c.JSON(http.StatusInternalServerError, data)
 	}
 
-	response:=map[string]interface{}{
-		"message":"Petient updated successfully",
-		"data":petient,
+	response := map[string]interface{}{
+		"message": "Petient updated successfully",
+		"data":    petient,
 	}
 	return c.JSON(http.StatusOK, response)
 }
 
-func DeletePetient(c echo.Context) error{
-	id:=c.Param("id")
-	db:=database.GetDB()
+func DeletePetient(c echo.Context) error {
+	id := c.Param("id")
+	db := database.GetDB()
 
 	var petient model.Petient
-	if err:=db.Where("id=?", id).First(&petient).Error; err !=nil{
-		data:=map[string]interface{}{
-			"message":"petient not found",
-			"data":err.Error(),
+	if err := db.Where("id=?", id).First(&petient).Error; err != nil {
+		data := map[string]interface{}{
+			"message": "petient not found",
+			"data":    err.Error(),
 		}
 		return c.JSON(http.StatusNotFound, data)
 	}
-	
-	if err:=db.Delete(&petient).Error; err !=nil{
-		data:=map[string]interface{}{
-			"message":"petient not deleted succssfully",
-			"data":err.Error(),
+
+	if err := db.Delete(&petient).Error; err != nil {
+		data := map[string]interface{}{
+			"message": "petient not deleted succssfully",
+			"data":    err.Error(),
 		}
 		return c.JSON(http.StatusInternalServerError, data)
 	}
-	response:=map[string]interface{}{
-		"message":"patient deleted successfully",
-		
+	response := map[string]interface{}{
+		"message": "patient deleted successfully",
 	}
 	return c.JSON(http.StatusOK, response)
 }
