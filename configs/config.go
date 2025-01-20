@@ -9,7 +9,7 @@ type Config struct {
 }
 type DatabaseConfigration struct {
 	Host     string
-	Prort    string
+	Port     int
 	Name     string
 	Username string
 	Password string
