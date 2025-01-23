@@ -8,5 +8,7 @@ type Appointment struct {
 	Date      time.Time `json:"date"`
 	Reason    string    `json:"reason"`
 	Notes     string    `json:"notes"`
+	DoctorId  string    `json:"doctorID"`
+	Status    string    `json:"status"`
 	Patient   *Patient  `gorm:"foreignKey:PatientID" json:"patientID"`
 }

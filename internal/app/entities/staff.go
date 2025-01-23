@@ -6,6 +6,7 @@ import (
 	"github.com/shopspring/decimal"
 )
 
+// lazy loading concept here
 type Staff struct {
 	Model
 	FirstName   string          `json:"firstName"`
@@ -17,5 +18,5 @@ type Staff struct {
 	Salary      decimal.Decimal `json:"salary"`
 	DateOfJoin  time.Time       `json:"dateOfJoin"`
 	Status      string          `json:"status"`
-	Department  []Department    `json:"department"`
+	Department  *[]Department   `json:"department"`
 }
