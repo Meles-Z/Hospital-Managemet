@@ -14,4 +14,5 @@ type Billing struct {
 	Amount        decimal.Decimal
 	PaymentStatus string
 	BillingDate   time.Time
+	// patient left here
 }

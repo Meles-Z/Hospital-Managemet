@@ -18,5 +18,5 @@ type Staff struct {
 	Salary      decimal.Decimal `json:"salary"`
 	DateOfJoin  time.Time       `json:"dateOfJoin"`
 	Status      string          `json:"status"`
-	Department  *[]Department   `json:"department"`
+	Department  []Department   `json:"department"`
 }

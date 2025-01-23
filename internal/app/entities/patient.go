@@ -1,5 +1,6 @@
 package entities
 
+// gorm is by default lazy loading
 type Patient struct {
 	Model
 	Name         string `json:"name"`
@@ -7,7 +8,6 @@ type Patient struct {
 	Email        string `json:"email"`
 	PhoneNumber  string `json:"phoneNumber"`
 	Gender       string
-	Appointments *[]Appointment `gorm:"foreignKey:PatientID" json:"appointments"`
-	Billing      *[]Billing     `gorm:"foreignKey:PatientID" json:"billing"` // lazy loading
-	// insurance info or date of birth here
+	Appointments []Appointment `gorm:"foreignKey:PatientID" json:"appointments"`
+	Billing      []Billing     `gorm:"foreignKey:PatientID" json:"billing"`
 }
