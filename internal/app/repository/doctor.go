@@ -10,7 +10,7 @@ import (
 type DoctorRepository interface {
 	CreateDoctor(*entities.Doctor) (*entities.Doctor, error)
 	GetDoctor() ([]entities.Doctor, error)
-	GetAllDoctorById(id string) (*entities.Doctor, error)
+	GetDoctorById(id string) (*entities.Doctor, error)
 	UpdateDoctor(*entities.Doctor) (*entities.Doctor, error)
 	DeleteDoctor(id string) error
 	WithTrx(*gorm.DB) DoctorRepository
@@ -49,7 +49,7 @@ func (repo doctorRepoImp) GetDoctor() ([]entities.Doctor, error) {
 	}
 	return doctor, nil
 }
-func (repo doctorRepoImp) GetAllDoctorById(id string) (*entities.Doctor, error) {
+func (repo doctorRepoImp) GetDoctorById(id string) (*entities.Doctor, error) {
 	var doctor entities.Doctor
 	err := repo.DB.Where("id=?", id).Take(&doctor).Error
 	if err != nil {
@@ -70,7 +70,7 @@ func (repo doctorRepoImp) UpdateDoctor(doctor *entities.Doctor) (*entities.Docto
 	if err != nil {
 		return nil, err
 	}
-	return repo.GetAllDoctorById(doctor.ID)
+	return repo.GetDoctorById(doctor.ID)
 }
 
 func (repo doctorRepoImp) DeleteDoctor(id string) error {
